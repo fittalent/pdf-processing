@@ -1,0 +1,27 @@
+name: Process PDF
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Runs every hour
+  workflow_dispatch:     # Allows manual triggering of the workflow
+
+jobs:
+  run-pdf-processing:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install requests
+          # Add other dependencies here if needed, e.g., PyMuPDF
+
+      - name: Run PDF processing script
+        run: python process_pdf.py
